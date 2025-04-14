@@ -3,137 +3,80 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Free online text case converter tool to convert text to UPPERCASE, lowercase, Capitalize, and Invert case.">
-  <meta name="keywords" content="text case converter, online text tool, uppercase converter, lowercase converter, capitalize text, invert case">
-  <meta name="author" content="Your Name">
-  <title>Text Case Converter - Online Free Tool</title>
+  <title>Text Case Converter Tool</title>
   <style>
-    :root {
-      --bg-color: #f0f0f0;
-      --text-color: #000;
-      --card-bg: #fff;
-    }
-    [data-theme="dark"] {
-      --bg-color: #121212;
-      --text-color: #fff;
-      --card-bg: #1e1e1e;
-    }
-    body {
-      font-family: Arial, sans-serif;
-      background: var(--bg-color);
-      color: var(--text-color);
-      padding: 20px;
-      margin: 0;
-      transition: background 0.3s, color 0.3s;
-    }
-    .container {
-      max-width: 700px;
-      margin: auto;
-      background: var(--card-bg);
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
-    }
-    textarea {
-      width: 100%;
-      height: 120px;
-      padding: 10px;
-      font-size: 16px;
-      margin-bottom: 10px;
-      resize: vertical;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-    .buttons button {
-      margin: 5px;
-      padding: 10px 15px;
-      font-size: 14px;
-      cursor: pointer;
-      border: none;
-      background-color: #007bff;
-      color: white;
-      border-radius: 5px;
-      transition: background 0.3s;
-    }
-    .buttons button:hover {
-      background-color: #0056b3;
-    }
-    .utility-buttons {
-      margin-top: 10px;
-    }
-    .utility-buttons button {
-      background: #28a745;
-    }
-    .utility-buttons button:hover {
-      background: #1e7e34;
-    }
-    .theme-toggle {
-      float: right;
-      margin-bottom: 10px;
-      cursor: pointer;
-      font-size: 14px;
-    }
+    body { font-family: Arial, sans-serif; margin: 0; background: #f0f2f5; padding: 20px; }
+    .container { max-width: 800px; margin: auto; background: #fff; padding: 30px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    textarea { width: 100%; height: 150px; padding: 10px; font-size: 16px; border-radius: 5px; border: 1px solid #ccc; margin-bottom: 15px; resize: vertical; }
+    button { margin: 5px; padding: 10px 15px; font-size: 14px; border: none; border-radius: 5px; background-color: #007BFF; color: #fff; cursor: pointer; }
+    button:hover { background-color: #0056b3; }
+    h1 { text-align: center; color: #333; }
+    .output { margin-top: 20px; }
+    .ad-slot { background: #e2e2e2; text-align: center; padding: 15px; margin: 20px 0; border-radius: 5px; font-size: 14px; color: #444; }
+    .footer-links { text-align: center; margin-top: 30px; font-size: 14px; }
+    .footer-links a { margin: 0 10px; text-decoration: none; color: #007BFF; }
+    .footer-links a:hover { text-decoration: underline; }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="theme-toggle" onclick="toggleTheme()">Toggle Dark Mode</div>
-    <h1>Text Case Converter</h1>
-    <textarea id="textInput" placeholder="Enter your text here..."></textarea>
-    <div class="buttons">
-      <button onclick="toUpperCase()">UPPERCASE</button>
-      <button onclick="toLowerCase()">lowercase</button>
-      <button onclick="toCapitalize()">Capitalize</button>
-      <button onclick="toInvert()">iNVERT</button>
-    </div>
-    <textarea id="output" placeholder="Result will appear here..." readonly></textarea>
-    <div class="utility-buttons">
-      <button onclick="copyText()">Copy Output</button>
+    <h1>Text Case Converter Tool</h1>
+    <div class="ad-slot">[Ad Slot – Top Banner]</div>
+
+    <textarea id="inputText" placeholder="यहाँ अपना टेक्स्ट टाइप या पेस्ट करें..."></textarea>
+
+    <div>
+      <button onclick="convertCase('upper')">UPPERCASE</button>
+      <button onclick="convertCase('lower')">lowercase</button>
+      <button onclick="convertCase('capitalize')">Capitalize</button>
+      <button onclick="convertCase('invert')">iNVERT</button>
+      <button onclick="copyOutput()">Copy Output</button>
       <button onclick="clearText()">Clear All</button>
+    </div>
+
+    <div class="output">
+      <textarea id="outputText" placeholder="परिणाम यहाँ दिखेगा..." readonly></textarea>
+    </div>
+
+    <div class="ad-slot">[Ad Slot – Bottom Banner]</div>
+
+    <div class="footer-links">
+      <a href="how-to-use.html">How to Use</a>
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="disclaimer.html">Disclaimer</a>
     </div>
   </div>
 
   <script>
-    function toUpperCase() {
-      const text = document.getElementById("textInput").value;
-      document.getElementById("output").value = text.toUpperCase();
-    }
-
-    function toLowerCase() {
-      const text = document.getElementById("textInput").value;
-      document.getElementById("output").value = text.toLowerCase();
-    }
-
-    function toCapitalize() {
-      const text = document.getElementById("textInput").value.toLowerCase();
-      const result = text.replace(/\b\w/g, char => char.toUpperCase());
-      document.getElementById("output").value = result;
-    }
-
-    function toInvert() {
-      const text = document.getElementById("textInput").value;
-      let inverted = '';
-      for (let char of text) {
-        inverted += char === char.toUpperCase() ? char.toLowerCase() : char.toUpperCase();
+    function convertCase(type) {
+      let text = document.getElementById('inputText').value;
+      let result = '';
+      switch(type) {
+        case 'upper':
+          result = text.toUpperCase();
+          break;
+        case 'lower':
+          result = text.toLowerCase();
+          break;
+        case 'capitalize':
+          result = text.replace(/\b\w/g, char => char.toUpperCase());
+          break;
+        case 'invert':
+          result = [...text].map(c => c === c.toUpperCase() ? c.toLowerCase() : c.toUpperCase()).join('');
+          break;
       }
-      document.getElementById("output").value = inverted;
+      document.getElementById('outputText').value = result;
     }
 
-    function copyText() {
-      const output = document.getElementById("output");
+    function copyOutput() {
+      let output = document.getElementById('outputText');
       output.select();
-      document.execCommand("copy");
-      alert("Output copied to clipboard!");
+      document.execCommand('copy');
     }
 
     function clearText() {
-      document.getElementById("textInput").value = "";
-      document.getElementById("output").value = "";
-    }
-
-    function toggleTheme() {
-      const currentTheme = document.documentElement.getAttribute("data-theme");
-      document.documentElement.setAttribute("data-theme", currentTheme === "dark" ? "light" : "dark");
+      document.getElementById('inputText').value = '';
+      document.getElementById('outputText').value = '';
     }
   </script>
 </body>
